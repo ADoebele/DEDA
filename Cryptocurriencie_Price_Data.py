@@ -25,9 +25,9 @@ import plotly.graph_objs as go
 #Define a function to pull the data from one exchange:
 def crypto_data(chart_exchange):
     #Download and cache Quandl dataseries
-    #path = '{}.pkl'.format(chart_exchange).replace('/','-')
+    path = '{}.csv'.format(chart_exchange).replace('/','-')
     df = quandl.get(chart_exchange, returns='pandas')
-    #df.to_pickle(path)
+    df.to_csv(path)
     return df  
 
 df_kraken = crypto_data('BCHARTS/KRAKENUSD')
