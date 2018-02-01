@@ -7,7 +7,7 @@ import string
 
 cdir = os.getcwd()
 
-article_str = "".join(str(content_list))
+#article_str = "".join(str(content_list))
 
 '''
 split the resulting string into words and clean up the resulting string
@@ -16,94 +16,52 @@ split the resulting string into words and clean up the resulting string
 #split into words
 from nltk.tokenize import word_tokenize
 nltk.download('punkt')
-tokens = word_tokenize(article_str)
-print(tokens[:100])
+tokenized_sents = [word_tokenize(i) for i in content_list]
+print(tokenized_sents[:100])
 
 #remove all tokens that are not alphabetic
-words = [word for word in tokens if word.isalpha()]
-print(words[:100])
+magazin_list = []
+for article in tokenized_sents :
+    alpha = [word for word in article if word.isalpha()]
+    magazin_list.append(alpha)
+    
 #convert to lower case
-words = [w.lower() for w in words]
+magazin_list = [[words.lower() for words in article] for article in magazin_list]
 
 #filter out stopwords
 from nltk.corpus import stopwords
 nltk.download('stopwords')
 stop_words = stopwords.words('english')
 print(stop_words)
-words = [w for w in words if not w in stop_words]
-stopwords.add("would","also","one")
-words = [w for w in words if not w in more_stopwords]
-print(words[:100])
+count=0
+for article in magazin_list :
+    count += 1
+    print(count)
+    non_stops = [w for w in article if not w in stop_words]
+    magazin_list[count-1] = non_stops
 
-#Combine words to stem words
-from nltk.stem.porter import PorterStemmer
-porter = PorterStemmer()
-stemmed = [porter.stem(word) for word in words]
-print(stemmed[:100])
-words = [w for w in words if not w in stemmed]
-print(words[:100])
+#Additional stopwords from McDonald
+#Stopwords consiting of dates and numbers
+dates = list(open('StopWords_DatesandNumbers.txt','r'))
+dates_str = "".join(str(dates))
+dates = dates_str.lower()
+dates = dates.replace('\\n','')
+count = 0
+for article in magazin_list :
+    count += 1
+    print(count)
+    non_stops = [w for w in article if not w in dates]
+    magazin_list[count-1] = non_stops
+    
 
-
-
-'''
-Basic statistics
-'''
-
-
-'''
-Histogram of words
-'''
-
-#Only the most frequent n words are observed
-counts = dict(Counter(words).most_common(200))
-labels, values = zip(*counts.items())
-
-#Sort the values by decending order
-indSort = np.argsort(values)[::-1]
-
-#Rearrange your data
-labels = np.array(labels)[indSort]
-values = np.array(values)[indSort]
-
-indexes = np.arange(len(labels))
-
-bar_width = 0.35
-
-plt.bar(indexes, values)
-
-plt.xticks(indexes + bar_width, labels)
-plt.show()
-
-
-
-
-'''
-word could
-'''
-
-from wordcloud import WordCloud
-from PIL import Image
-
-btc_string = "".join(str(words))
-
-def wordcloud(text,image):
-
-    picture = np.array(Image.open(image))
-
-    wc = WordCloud(background_color = "white",
-                   mask = picture,
-                   max_words = 150)
-    wc.generate_from_frequencies(text)
-
-    wc.to_file("btc_wordcloud.jpg")
-
-
-wordcloud(counts)
-
-
-
-
-
-btc_text = open('btc_text.txt', 'w')
-btc_text.write(article_str)
-btc_text.close()
+#More stopwords from McDonald
+more_w = list(open('StopWords_Generic.txt','r'))
+more_str = "".join(str(more_w))
+more_w = more_str.replace('\\n','')
+more_w = more_w.lower()
+count = 0
+for article in magazin_list :
+    count += 1
+    print(count)
+    non_stops = [w for w in article if not w in more_w]
+    magazin_list[count-1] = non_stops
