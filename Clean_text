@@ -1,17 +1,6 @@
-import re
 import nltk
-from collections import Counter
-import numpy as np
-import matplotlib.pyplot as plt
-import string
 
-cdir = os.getcwd()
-
-#article_str = "".join(str(content_list))
-
-'''
-split the resulting string into words and clean up the resulting string
-'''
+#clean text from Bitcoin Magazin
 
 #split into words
 from nltk.tokenize import word_tokenize
@@ -46,6 +35,8 @@ dates = list(open('StopWords_DatesandNumbers.txt','r'))
 dates_str = "".join(str(dates))
 dates = dates_str.lower()
 dates = dates.replace('\\n','')
+
+magazin_list_L = []
 count = 0
 for article in magazin_list :
     count += 1
