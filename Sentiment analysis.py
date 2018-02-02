@@ -37,7 +37,7 @@ for article in magazin_list :
 
 
 
-#Bullish/Bearish indicators:
+#Bullish/Bearish indicators:(Not working yet, wrong formula)
 count = 0
 indic_list = []
 for article in magazin_list :
