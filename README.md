@@ -9,3 +9,5 @@ Webscraping in Cryptocurrencies :
     3. Rearranging and cleaning the data
 
     4. Wordcloud/Histogram of words
+    
+    5. Sentiment analysis
