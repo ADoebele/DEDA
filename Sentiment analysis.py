@@ -42,10 +42,25 @@ count = 0
 indic_list = []
 for article in magazin_list :
     count += 1
-    indic_list.append((math.log(math.log(1 + pos_list_L[count-1] / magazin_list_L[count-1]))/
-                                math.log(1 + neg_list_L[count-1] / magazin_list_L[count-1]))/
-                                math.log(2))
+     indic_list.append(math.log((1 + (pos_list_L[count-1] / magazin_list_L[count-1]))/
+                                (1 + (neg_list_L[count-1] / magazin_list_L[count-1])))/
+                                 math.log(2))
+        
+        
+#Add sentiment to bitcoin dataframe:
+bitcoin_df = pd.read_csv("Bitcoin_magazin_news.csv")
+bitcoin_df["bullish"] = indic_list
 
+
+#Add btc_prices to bitcoin dataframe:
+bitcoin_df["time"] = bitcoin_df["time"].apply(lambda x:
+                                              datetime.datetime.strptime(x,'%Y-%m-%d %H:%M:%S'))
+
+bitcoin_df["price"] = avg_btc_price["avg_BTC_price"]
+
+
+#Plot of price and sentiment:
+bitcoin_df.plot(x="time", y="bullish", style='-')
 
 
 
