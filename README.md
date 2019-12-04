@@ -2,12 +2,10 @@
 Digital Economy &amp; Data Analytics WS17/18 
 Webscraping in Cryptocurrencies :
 
-    1. Scraping price Data from quandl
+    1. Implementation of a Web Scraper to gather content from https://www.nasdaq.com/publishers/bitcoin-magazine.
 
-    2. Webscraping of Bitcoin Magazin
+    2. Preprocessing of the Data.
 
-    3. Rearranging and cleaning the data
-
-    4. Wordcloud/Histogram of words
+    3. Creation of Histogram and Wordcloud.
     
-    5. Sentiment analysis
+    4. Lexicon-based sentiment classification (Loughran/McDonald)
