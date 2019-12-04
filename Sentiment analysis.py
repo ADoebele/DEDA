@@ -1,6 +1,4 @@
 import pandas as pd
-
-#xlrd must be downloaded first
 import xlrd
 
 
@@ -19,7 +17,7 @@ McD_pos = McD_pos_str.lower()
 McD_pos = McD_pos.replace(',2009\\n','')
 
 
-#Find all negatives in Bitcoin Magazin articles:
+#Find all negative instances in Bitcoin Magazin articles:
 neg_list = []
 neg_list_L = []
 for article in magazin_list :
@@ -27,7 +25,7 @@ for article in magazin_list :
     neg_list.append(negatives)
     neg_list_L.append(len(negatives))
 
-#Find all positivs in Bitcoin Magazin articles
+#Find all positive instances in Bitcoin Magazin articles
 pos_list = []
 pos_list_L = []
 for article in magazin_list :
@@ -37,7 +35,7 @@ for article in magazin_list :
 
 
 
-#Bullish/Bearish indicators:(Not working yet, wrong formula)
+#Bullish/Bearish indicators:
 count = 0
 indic_list = []
 for article in magazin_list :
@@ -47,19 +45,19 @@ for article in magazin_list :
                                  math.log(2))
         
         
-#Add sentiment to bitcoin dataframe:
+#Add sentiment to Bitcoin dataframe:
 bitcoin_df = pd.read_csv("Bitcoin_magazin_news.csv")
 bitcoin_df["bullish"] = indic_list
 
 
-#Add btc_prices to bitcoin dataframe:
+#Add BTC prices to Bitcoin dataframe:
 bitcoin_df["time"] = bitcoin_df["time"].apply(lambda x:
                                               datetime.datetime.strptime(x,'%Y-%m-%d %H:%M:%S'))
 
 bitcoin_df["price"] = avg_btc_price["avg_BTC_price"]
 
 
-#Plot of price and sentiment:
+#Plot price and sentiment:
 bitcoin_df.plot(x="time", y="bullish", style='-')
 
 
