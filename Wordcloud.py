@@ -1,12 +1,8 @@
-'''
-Wordcloud
-'''
-
-
 from collections import Counter
 from wordcloud import WordCloud
 from PIL import Image
 
+#Define wourdcloud function:
 def wordcloud(text,image):
 
     picture = np.array(Image.open(image))
