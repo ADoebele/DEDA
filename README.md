@@ -8,4 +8,4 @@ Webscraping in Cryptocurrencies :
 
     3. Creation of Histogram and Wordcloud.
     
-    4. Lexicon-based sentiment classification (Loughran/McDonald)
+    4. Lexicon-based sentiment classification (Loughran/McDonald).
